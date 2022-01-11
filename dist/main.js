@@ -1,0 +1,1 @@
+(()=>{"use strict";let e=("a","b","c","d",{getTitle:()=>"a",getDescription:()=>"b",getDueDate:()=>"c",getPriority:()=>"d"});console.log(e),console.log(e.getTitle()),console.log(e.getDescription()),console.log(e.getDueDate()),console.log(e.getPriority())})();
