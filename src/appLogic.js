@@ -1,6 +1,17 @@
 const project = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
+  let ToDoList = [];
+  const addTodo = (title, description, dueDate, priority) => {
+    let todoObject = todo(title, description, dueDate, priority);
+    ToDoList.push(todoObject);
+  };
+  return {
+    getName,
+    getDescription,
+    addTodo,
+    ToDoList,
+  };
 };
 
 const todo = (title, description, dueDate, priority) => {
@@ -16,4 +27,4 @@ const todo = (title, description, dueDate, priority) => {
   };
 };
 
-export { todo };
+export { todo, project };
