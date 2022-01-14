@@ -5,8 +5,10 @@ module.exports = {
   mode: "development",
   entry: {
     index: "./src/index.js",
-    print: "./src/print.js",
+    logic: "./src/appLogic.js",
+    domManip: "./src/appDomManip.js",
   },
+  devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
       title: "Development",
