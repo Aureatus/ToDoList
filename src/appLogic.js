@@ -1,4 +1,7 @@
-const project = () => {};
+const project = (name, description) => {
+  const getName = () => name;
+  const getDescription = () => description;
+};
 
 const todo = (title, description, dueDate, priority) => {
   const getTitle = () => title;
