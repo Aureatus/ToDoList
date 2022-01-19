@@ -10,6 +10,8 @@ const domManip = () => {
     let h1 = document.createElement("h1");
     h1.textContent = "ToDo List";
     container.appendChild(h1);
+    let projects = document.createElement("projects");
+    container.appendChild(projects);
   };
   return {
     initial,
