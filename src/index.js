@@ -13,3 +13,4 @@ let DefaultProject = project(
 );
 
 domManip().initial();
+domManip().projectRender();
