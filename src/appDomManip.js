@@ -13,8 +13,20 @@ const domManip = () => {
     let projects = document.createElement("projects");
     container.appendChild(projects);
   };
+
+  const projectRender = () => {
+    let projects = document.querySelector("projects");
+    console.log(projects);
+    for (let i = 1; i <= 12; i++) {
+      let project = document.createElement("project");
+      project.classList.add(i);
+      project.textContent = `Project ${i}`;
+      projects.appendChild(project);
+    }
+  };
   return {
     initial,
+    projectRender,
   };
 };
 
