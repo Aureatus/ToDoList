@@ -6,13 +6,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: aliceblue;
+  background-color: #f2eae4;
 }
 
 container {
   width: 60%;
   height: 100%;
-  background-color: beige;
+  background-color: #f1ebfa;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,9 +22,17 @@ h1 {
   margin: 0;
   height: 10%;
   width: 100%;
-  background-color: aquamarine;
+  background-color: #c26829;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+projects {
+  border-color: black;
+  border-style: solid;
+  width: 100%;
+  height: 20%;
+  box-sizing: border-box;
 }
