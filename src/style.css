@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  font-size: 100%;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -10,8 +11,8 @@ body {
 }
 
 container {
-  width: 60%;
-  height: 100%;
+  width: 60vw;
+  height: 100vh;
   background-color: #f1ebfa;
   display: flex;
   flex-direction: column;
@@ -20,8 +21,9 @@ container {
 
 h1 {
   margin: 0;
-  height: 10%;
-  width: 100%;
+  height: calc(2vw + 4.5vh);
+  width: 60vw;
+  font-size: 4vw;
   background-color: #c26829;
   text-align: center;
   display: flex;
@@ -32,7 +34,23 @@ h1 {
 projects {
   border-color: black;
   border-style: solid;
-  width: 100%;
-  height: 20%;
+  height: 30vh;
+  width: 60vw;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1vw;
+  padding: 1vw;
+}
+
+project {
+  font-size: calc(1vw + 2.25vh);
+  background-color: #8236eb3b;
+  height: 7vh;
+  width: 12vw;
+  text-align: center;
+  line-height: 7vh;
+  border-radius: 15px;
 }
