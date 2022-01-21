@@ -7,10 +7,17 @@ import { project } from "./appLogic";
 import { domManip } from "./appDomManip";
 import "./style.css";
 
-let DefaultProject = project(
+let defaultProject = project(
   "Default",
   "Default project created for all users."
 );
+const projects = [];
+projects.push(defaultProject);
+
+/*for (let i = 1; i <= 12; i++) {
+  let projectCurrent = project(`Project${i}`, "placeholder");
+  projects.push(projectCurrent);
+}*/
 
 domManip().initial();
-domManip().projectRender();
+domManip().projectRender(projects);
