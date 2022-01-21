@@ -34,7 +34,7 @@ h1 {
 projects {
   border-color: black;
   border-style: solid;
-  height: 30vh;
+  height: 30vmax;
   width: 60vw;
   box-sizing: border-box;
   display: flex;
@@ -45,9 +45,9 @@ projects {
   padding: 1vw;
 }
 
-project {
-  font-size: calc(1vw + 2.25vh);
-  background-color: #8236eb3b;
+.project {
+  font-size: 2vmin;
+  background-color: #8136eb3b;
   height: 7vh;
   width: 12vw;
   text-align: center;
