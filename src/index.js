@@ -14,10 +14,9 @@ let defaultProject = project(
 const projects = [];
 projects.push(defaultProject);
 
-/*for (let i = 1; i <= 12; i++) {
+for (let i = 1; i <= 11; i++) {
   let projectCurrent = project(`Project${i}`, "placeholder");
   projects.push(projectCurrent);
-}*/
+}
 
-domManip().initial();
-domManip().projectRender(projects);
+domManip().initialBuild(projects);
