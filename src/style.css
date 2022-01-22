@@ -31,16 +31,37 @@ h1 {
   justify-content: center;
 }
 
-projects {
+h2 {
+  margin: 0%;
+  font-size: 3vmin;
+  width: 100%;
+  text-align: center;
+  padding: 2.5vmin;
+  height: auto;
+  width: auto;
+}
+
+projectsection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-color: black;
   border-style: solid;
   height: 30vmax;
   width: 60vw;
   box-sizing: border-box;
+  text-align: center;
+}
+
+projects {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+  row-gap: 20px;
+  height: 60%;
+  width: 100%;
 }
 
 .project {
@@ -49,16 +70,17 @@ projects {
   height: 7vh;
   width: 12vw;
   text-align: center;
-  line-height: 7vh;
+  line-height: calc(7vmin + 7vmax) / 2;
   border-radius: 15px;
 }
 
 .projectAdd {
   font-size: 6vmin;
   background-color: #7affb2;
-  height: 10vh;
-  width: 10vh;
+  height: 8vmin;
+  width: 8vmin;
   text-align: center;
-  line-height: 10vh;
+  line-height: 10%;
   border-radius: 15px;
+  margin: auto;
 }
