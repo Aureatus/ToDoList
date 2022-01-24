@@ -15,7 +15,26 @@ const domManip = () => {
       addProjectButton.textContent = "+";
       let projecth2 = document.createElement("h2");
       projecth2.textContent = "Projects";
-
+      let dialog = document.createElement("dialog");
+      dialog.id = "projectAdd";
+      let form = document.createElement("form");
+      form.method = "dialog";
+      let label1 = document.createElement("label");
+      label1.textContent = "Project Name";
+      label1.for = "projectName";
+      let label2 = document.createElement("label");
+      label2.textContent = "Project Description";
+      label2.for = "projectDescription";
+      let input1 = document.createElement("input");
+      input1.type = "text";
+      input1.id = "projectName";
+      input1.required = "true";
+      let input2 = document.createElement("input");
+      input2.type = "text";
+      input2.id = "projectDescription";
+      input2.required = "true";
+      let submit = document.createElement("input");
+      submit.type = "submit";
       return {
         container,
         h1,
@@ -23,6 +42,13 @@ const domManip = () => {
         projects,
         addProjectButton,
         projecth2,
+        dialog,
+        form,
+        label1,
+        label2,
+        input1,
+        input2,
+        submit,
       };
     };
 
@@ -32,7 +58,14 @@ const domManip = () => {
       projectSection,
       projects,
       addProjectButton,
-      projecth2
+      projecth2,
+      dialog,
+      form,
+      label1,
+      label2,
+      input1,
+      input2,
+      submit
     ) => {
       document.body.appendChild(container);
       document.querySelector("container").appendChild(h1);
@@ -40,6 +73,13 @@ const domManip = () => {
       projectSection.appendChild(projecth2);
       projectSection.appendChild(projects);
       projectSection.appendChild(addProjectButton);
+      projectSection.appendChild(dialog);
+      dialog.appendChild(form);
+      form.appendChild(label1);
+      form.appendChild(input1);
+      form.appendChild(label2);
+      form.appendChild(input2);
+      form.appendChild(submit);
     };
 
     return {
