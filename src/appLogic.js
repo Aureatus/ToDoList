@@ -63,8 +63,8 @@ const generalLogic = () => {
         let tempProject = projectConstructor(
           ...Object.values(FormDataGrabber())
         );
-        projectDirectoryModule().pushProject(tempProject);
-        console.log(projectDirectoryModule().getProjects());
+        projectsManager.pushProject(tempProject);
+        console.log(projectsManager.getProjects());
       });
     };
     projectAddButtonEventListener();
@@ -87,4 +87,6 @@ const generalLogic = () => {
     FormDataGrabber,
   };
 };
-export { projectConstructor, generalLogic };
+
+const projectsManager = generalLogic().projectDirectoryModule();
+export { projectConstructor, generalLogic, projectsManager };
