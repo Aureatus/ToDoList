@@ -3,20 +3,17 @@
 
 // Use IIFE to createdefault "project" to put todos in, but let users create new projects and choose what projects the todos go in.
 
-import { project } from "./appLogic";
+import { projectConstructor, generalLogic } from "./appLogic";
 import { domManip } from "./appDomManip";
 import "./style.css";
 
-let defaultProject = project(
+let defaultProject = projectConstructor(
   "Default",
   "Default project created for all users."
 );
-const projects = [];
-projects.push(defaultProject);
 
-for (let i = 1; i <= 11; i++) {
-  let projectCurrent = project(`Project${i}`, "placeholder");
-  projects.push(projectCurrent);
-}
+let Test = generalLogic();
+Test.projectDirectoryModule().pushProject(defaultProject);
 
-domManip().initialBuild(projects);
+domManip().initialBuild(Test.projectDirectoryModule().getProjects());
+generalLogic().addEventListeners();
