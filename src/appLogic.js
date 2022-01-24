@@ -1,4 +1,4 @@
-const project = (name, description) => {
+const projectConstructor = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
   let ToDoList = [];
@@ -27,4 +27,64 @@ const toDo = (title, description, dueDate, priority) => {
   };
 };
 
-export { project };
+const generalLogic = () => {
+  const projectDirectoryModule = () => {
+    const projectList = [];
+    const getProjects = () => {
+      return projectList;
+    };
+    const pushProject = (input) => {
+      projectList.push(input);
+      return;
+    };
+    const removeProject = (input) => {
+      projectList.splice(input);
+      return;
+    };
+
+    return {
+      getProjects,
+      pushProject,
+      removeProject,
+    };
+  };
+
+  const addEventListeners = () => {
+    const projectAddButtonEventListener = () => {
+      let projectAddButton = document.querySelector(".projectAdd");
+      projectAddButton.addEventListener("click", () => {
+        document.querySelector("#projectAdd").showModal();
+      });
+    };
+    const submitButtonEventListener = () => {
+      let submitButton = document.querySelector("input[type=submit]");
+      submitButton.addEventListener("click", () => {
+        document.querySelector("#projectAdd").close();
+        let tempProject = projectConstructor(
+          ...Object.values(FormDataGrabber())
+        );
+        projectDirectoryModule().pushProject(tempProject);
+        console.log(projectDirectoryModule().getProjects());
+      });
+    };
+    projectAddButtonEventListener();
+    submitButtonEventListener();
+  };
+
+  const FormDataGrabber = () => {
+    let forms = document.forms;
+    let projectName = forms[0].elements[0].value;
+    let projectDescription = forms[0].elements[1].value;
+    return {
+      projectName,
+      projectDescription,
+    };
+  };
+
+  return {
+    projectDirectoryModule,
+    addEventListeners,
+    FormDataGrabber,
+  };
+};
+export { projectConstructor, generalLogic };
