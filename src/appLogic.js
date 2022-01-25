@@ -1,3 +1,5 @@
+import { domManip } from "./appDomManip";
+
 const projectConstructor = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
@@ -41,11 +43,20 @@ const generalLogic = () => {
       projectList.splice(input);
       return;
     };
-
+    let SelectedProject = getProjects()[0];
+    const getSelectedProject = () => {
+      return SelectedProject;
+    };
+    const changeSelectedProject = (input) => {
+      SelectedProject = getProjects()[input];
+      console.log(getSelectedProject().getName());
+    };
     return {
       getProjects,
       pushProject,
       removeProject,
+      getSelectedProject,
+      changeSelectedProject,
     };
   };
 
@@ -53,6 +64,10 @@ const generalLogic = () => {
     const projectAddButtonEventListener = () => {
       let projectAddButton = document.querySelector(".projectAdd");
       projectAddButton.addEventListener("click", () => {
+        if (projectsManager.getProjects().length >= 12) {
+          alert("You are at max project capacity!");
+          return;
+        }
         document.querySelector("#projectAdd").showModal();
       });
     };
@@ -63,10 +78,25 @@ const generalLogic = () => {
           ...Object.values(FormDataGrabber())
         );
         projectsManager.pushProject(tempProject);
+        domManip().projectClear();
+        domManip().projectRender(projectsManager.getProjects());
       });
     };
-    projectAddButtonEventListener();
-    submitButtonEventListener();
+
+    const projectEventListener = () => {
+      let projects = document.querySelectorAll(".project");
+      projects.forEach((e, index) => {
+        projects[index].addEventListener("click", () => {
+          projectsManager.changeSelectedProject(index);
+        });
+      });
+    };
+
+    return {
+      projectAddButtonEventListener,
+      submitButtonEventListener,
+      projectEventListener,
+    };
   };
 
   const FormDataGrabber = () => {
