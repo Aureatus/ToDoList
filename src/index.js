@@ -13,7 +13,7 @@ let defaultProject = projectConstructor(
 );
 
 projectsManager.pushProject(defaultProject);
-console.log(projectsManager.getProjects());
+
 domManip().initialBuild(projectsManager.getProjects());
 generalLogic().addEventListeners();
 

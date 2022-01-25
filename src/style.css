@@ -34,9 +34,7 @@ h1 {
 h2 {
   margin: 0%;
   font-size: 3vmin;
-  width: 100%;
   text-align: center;
-  padding: 2.5vmin;
   height: auto;
   width: auto;
 }
@@ -72,6 +70,9 @@ projects {
   text-align: center;
   line-height: calc(7vmin + 7vmax) / 2;
   border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .projectAdd {
@@ -83,4 +84,20 @@ projects {
   line-height: 10%;
   border-radius: 15px;
   margin: auto;
+}
+
+details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 2vmax;
+  width: 60vw;
+  box-sizing: border-box;
+}
+details > summary {
+  text-align: center;
+  border-color: black;
+  border-style: solid;
+  cursor: default;
 }

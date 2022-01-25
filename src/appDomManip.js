@@ -1,3 +1,4 @@
+import { sum } from "lodash";
 import "./style.css";
 
 // Create a module containing all needed DOM manipulators.
@@ -13,8 +14,6 @@ const domManip = () => {
       let addProjectButton = document.createElement("button");
       addProjectButton.classList.add("projectAdd");
       addProjectButton.textContent = "+";
-      let projecth2 = document.createElement("h2");
-      projecth2.textContent = "Projects";
       let dialog = document.createElement("dialog");
       dialog.id = "projectAdd";
       let form = document.createElement("form");
@@ -35,13 +34,15 @@ const domManip = () => {
       input2.required = "true";
       let submit = document.createElement("input");
       submit.type = "submit";
+      let details = document.createElement("details");
+      let summary = document.createElement("summary");
+      summary.textContent = "Projects";
       return {
         container,
         h1,
         projectSection,
         projects,
         addProjectButton,
-        projecth2,
         dialog,
         form,
         label1,
@@ -49,6 +50,8 @@ const domManip = () => {
         input1,
         input2,
         submit,
+        details,
+        summary,
       };
     };
 
@@ -58,19 +61,21 @@ const domManip = () => {
       projectSection,
       projects,
       addProjectButton,
-      projecth2,
       dialog,
       form,
       label1,
       label2,
       input1,
       input2,
-      submit
+      submit,
+      details,
+      summary
     ) => {
       document.body.appendChild(container);
-      document.querySelector("container").appendChild(h1);
-      document.querySelector("container").appendChild(projectSection);
-      projectSection.appendChild(projecth2);
+      container.appendChild(h1);
+      container.appendChild(details);
+      details.appendChild(summary);
+      details.appendChild(projectSection);
       projectSection.appendChild(projects);
       projectSection.appendChild(addProjectButton);
       projectSection.appendChild(dialog);
@@ -104,10 +109,17 @@ const domManip = () => {
       projectHolder.appendChild(project);
     });
   };
+  const projectClear = () => {
+    let projects = document.querySelectorAll(".project");
+    projects.forEach((e, index) => {
+      projects[index].remove();
+    });
+  };
   return {
     initialBuild,
     projectRender,
     initialBuildFuncs,
+    projectClear,
   };
 };
 
