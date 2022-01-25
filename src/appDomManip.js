@@ -1,5 +1,6 @@
 import { sum } from "lodash";
 import "./style.css";
+import { generalLogic } from "./appLogic";
 
 // Create a module containing all needed DOM manipulators.
 
@@ -109,6 +110,7 @@ const domManip = () => {
       project.textContent = projects[index].getName();
       projectHolder.appendChild(project);
     });
+    generalLogic().addEventListeners().projectEventListener();
   };
   const projectClear = () => {
     let projects = document.querySelectorAll(".project");
