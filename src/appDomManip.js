@@ -35,6 +35,7 @@ const domManip = () => {
       let submit = document.createElement("input");
       submit.type = "submit";
       let details = document.createElement("details");
+      details.open = true;
       let summary = document.createElement("summary");
       summary.textContent = "Projects";
       return {
