@@ -59,7 +59,6 @@ const generalLogic = () => {
     const submitButtonEventListener = () => {
       let submitButton = document.querySelector("input[type=submit]");
       submitButton.addEventListener("click", () => {
-        document.querySelector("#projectAdd").close();
         let tempProject = projectConstructor(
           ...Object.values(FormDataGrabber())
         );
