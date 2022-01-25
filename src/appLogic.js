@@ -64,7 +64,6 @@ const generalLogic = () => {
           ...Object.values(FormDataGrabber())
         );
         projectsManager.pushProject(tempProject);
-        console.log(projectsManager.getProjects());
       });
     };
     projectAddButtonEventListener();
