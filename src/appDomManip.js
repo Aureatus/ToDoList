@@ -27,11 +27,11 @@ const domManip = () => {
       let input1 = document.createElement("input");
       input1.type = "text";
       input1.id = "projectName";
-      input1.required = "true";
+      input1.required = true;
       let input2 = document.createElement("input");
       input2.type = "text";
       input2.id = "projectDescription";
-      input2.required = "true";
+      input2.required = true;
       let submit = document.createElement("input");
       submit.type = "submit";
       let details = document.createElement("details");
