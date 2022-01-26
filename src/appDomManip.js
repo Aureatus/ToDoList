@@ -37,8 +37,10 @@ const domManip = () => {
       submit.type = "submit";
       let details = document.createElement("details");
       details.open = true;
+      details.classList.add("projectSectionContainer");
       let summary = document.createElement("summary");
       summary.textContent = "Projects";
+      let toDoSection = document.createElement("toDoSection");
       return {
         container,
         h1,
@@ -54,6 +56,7 @@ const domManip = () => {
         submit,
         details,
         summary,
+        toDoSection,
       };
     };
 
@@ -71,7 +74,8 @@ const domManip = () => {
       input2,
       submit,
       details,
-      summary
+      summary,
+      toDoSection
     ) => {
       document.body.appendChild(container);
       container.appendChild(h1);
@@ -87,6 +91,7 @@ const domManip = () => {
       form.appendChild(label2);
       form.appendChild(input2);
       form.appendChild(submit);
+      container.appendChild(toDoSection);
     };
 
     return {

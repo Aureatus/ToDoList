@@ -46,6 +46,7 @@ projectsection {
   align-items: center;
   border-color: black;
   border-style: solid;
+  border-width: 0px 2px 2px 2px;
   height: 30vmax;
   width: 60vw;
   box-sizing: border-box;
@@ -91,7 +92,6 @@ details {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 2vmax;
   width: 60vw;
   box-sizing: border-box;
 }
@@ -99,5 +99,15 @@ details > summary {
   text-align: center;
   border-color: black;
   border-style: solid;
+  border-width: 2px 2px 2px 2px;
   cursor: default;
+  margin: 0%;
+}
+
+toDoSection {
+  flex: 1;
+  width: 60vw;
+  border-width: 0px 2px 2px 2px;
+  border-style: solid;
+  box-sizing: border-box;
 }
