@@ -1,6 +1,6 @@
 import { sum } from "lodash";
 import "./style.css";
-import { generalLogic } from "./appLogic";
+import { generalLogic, projectsManager } from "./appLogic";
 
 // Create a module containing all needed DOM manipulators.
 
@@ -41,6 +41,9 @@ const domManip = () => {
       let summary = document.createElement("summary");
       summary.textContent = "Projects";
       let toDoSection = document.createElement("toDoSection");
+      let toDoHeader = document.createElement("h2");
+      toDoHeader.classList.add("toDoHeader");
+      let toDoContent = document.createElement("toDoContent");
       return {
         container,
         h1,
@@ -57,6 +60,8 @@ const domManip = () => {
         details,
         summary,
         toDoSection,
+        toDoHeader,
+        toDoContent,
       };
     };
 
@@ -75,7 +80,9 @@ const domManip = () => {
       submit,
       details,
       summary,
-      toDoSection
+      toDoSection,
+      toDoHeader,
+      toDoContent
     ) => {
       document.body.appendChild(container);
       container.appendChild(h1);
@@ -92,6 +99,8 @@ const domManip = () => {
       form.appendChild(input2);
       form.appendChild(submit);
       container.appendChild(toDoSection);
+      toDoSection.appendChild(toDoHeader);
+      toDoSection.appendChild(toDoContent);
     };
 
     return {
