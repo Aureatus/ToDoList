@@ -77,6 +77,12 @@ const generalLogic = () => {
         let tempProject = projectConstructor(
           ...Object.values(FormDataGrabber())
         );
+        if (
+          FormDataGrabber().projectName == "" ||
+          FormDataGrabber().projectDescription == ""
+        ) {
+          return;
+        }
         projectsManager.pushProject(tempProject);
         domManip().projectClear();
         domManip().projectRender(projectsManager.getProjects());
