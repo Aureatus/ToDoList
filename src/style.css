@@ -111,3 +111,11 @@ toDoSection {
   border-style: solid;
   box-sizing: border-box;
 }
+
+.toDoHeader {
+  width: 100%;
+}
+
+todocontent {
+  width: 100%;
+}
