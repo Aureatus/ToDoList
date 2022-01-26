@@ -17,15 +17,27 @@ const projectConstructor = (name, description) => {
 };
 
 const toDo = (title, description, dueDate, priority) => {
+  // priority should be ASAP, soon and on the horizon.
   const getTitle = () => title;
   const getDescription = () => description;
   const getDueDate = () => dueDate;
   const getPriority = () => priority;
+  let complete = false;
+  const taskCompleted = () => {
+    complete = true;
+  };
+  const isTaskComplete = () => {
+    return complete;
+  };
+  const changePriority = () => {};
   return {
     getTitle,
     getDescription,
     getDueDate,
     getPriority,
+    taskCompleted,
+    isTaskComplete,
+    changePriority,
   };
 };
 
