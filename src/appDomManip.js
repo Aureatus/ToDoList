@@ -112,6 +112,10 @@ const domManip = () => {
     let elements = Object.values(initialBuildFuncs().elementCreation());
     initialBuildFuncs().elementInsertion(...elements);
     projectRender(input);
+    let toDoHeader = document.querySelector(".toDoHeader");
+    toDoHeader.textContent = `${projectsManager
+      .getProjects()[0]
+      .getName()} project`;
   };
 
   const projectRender = (projects) => {
