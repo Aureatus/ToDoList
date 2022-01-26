@@ -114,8 +114,10 @@ toDoSection {
 
 .toDoHeader {
   width: 100%;
+  height: 20%;
 }
-
 todocontent {
   width: 100%;
+  height: 80%;
+  background-color: black;
 }
