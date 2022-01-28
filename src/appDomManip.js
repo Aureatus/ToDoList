@@ -191,7 +191,8 @@ const domManip = () => {
     let elements = Object.values(initialBuildFuncs().elementCreation());
     initialBuildFuncs().elementInsertion(...elements);
     projectRender(input);
-    
+  };
+
   const projectRender = (projects) => {
     let projectHolder = document.querySelector("projects");
 
