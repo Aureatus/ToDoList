@@ -44,6 +44,7 @@ const domManip = () => {
       let toDoContent = document.createElement("toDoContent");
       let addToDoButton = document.createElement("button");
       addToDoButton.classList.add("addToDo");
+      addToDoButton.textContent = "New Task";
       let toDoDialog = document.createElement("dialog");
       toDoDialog.id = "toDoDialog";
       let toDoForm = document.createElement("form");
