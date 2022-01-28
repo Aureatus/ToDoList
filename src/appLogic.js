@@ -97,6 +97,13 @@ const generalLogic = () => {
         projectsManager.pushProject(tempProject);
         domManip().projectClear();
         domManip().projectRender(projectsManager.getProjects());
+        projectsManager.changeSelectedProject(
+          projectsManager.getProjects().length - 1
+        );
+        let toDoHeader = document.querySelector(".toDoHeader");
+        toDoHeader.textContent = `${projectsManager
+          .getSelectedProject()
+          .getName()} project`;
       });
     };
 
@@ -105,6 +112,10 @@ const generalLogic = () => {
       projects.forEach((e, index) => {
         projects[index].addEventListener("click", () => {
           projectsManager.changeSelectedProject(index);
+          let toDoHeader = document.querySelector(".toDoHeader");
+          toDoHeader.textContent = `${projectsManager
+            .getSelectedProject()
+            .getName()} project`;
         });
       });
     };
