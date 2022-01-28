@@ -13,9 +13,12 @@ let defaultProject = projectConstructor(
 );
 
 projectsManager.pushProject(defaultProject);
+projectsManager.changeSelectedProject(0);
 
 domManip().initialBuild(projectsManager.getProjects());
 generalLogic().addEventListeners().projectAddButtonEventListener();
-generalLogic().addEventListeners().submitButtonEventListener();
+generalLogic().addEventListeners().projectSubmitButtonEventListener();
+generalLogic().addEventListeners().addToDoButtonEventListener();
+generalLogic().addEventListeners().addToDoSubmitButtonEventListener();
 
 export { projectsManager };

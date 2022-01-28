@@ -17,7 +17,7 @@ const projectConstructor = (name, description) => {
 };
 
 const toDo = (title, description, dueDate, priority) => {
-  // priority should be ASAP, soon and on the horizon.
+  // priority should be ASAP, soon and not urgent.
   const getTitle = () => title;
   const getDescription = () => description;
   const getDueDate = () => dueDate;
@@ -55,13 +55,12 @@ const generalLogic = () => {
       projectList.splice(input);
       return;
     };
-    let SelectedProject = getProjects()[0];
+    let SelectedProject;
     const getSelectedProject = () => {
       return SelectedProject;
     };
     const changeSelectedProject = (input) => {
       SelectedProject = getProjects()[input];
-      console.log(getSelectedProject().getName());
     };
     return {
       getProjects,
@@ -83,15 +82,15 @@ const generalLogic = () => {
         document.querySelector("#projectAdd").showModal();
       });
     };
-    const submitButtonEventListener = () => {
+    const projectSubmitButtonEventListener = () => {
       let submitButton = document.querySelector("input[type=submit]");
       submitButton.addEventListener("click", () => {
         let tempProject = projectConstructor(
-          ...Object.values(FormDataGrabber())
+          ...Object.values(ProjectFormDataGrabber())
         );
         if (
-          FormDataGrabber().projectName == "" ||
-          FormDataGrabber().projectDescription == ""
+          ProjectFormDataGrabber().projectName == "" ||
+          ProjectFormDataGrabber().projectDescription == ""
         ) {
           return;
         }
@@ -110,14 +109,34 @@ const generalLogic = () => {
       });
     };
 
+    const addToDoButtonEventListener = () => {
+      let button = document.querySelector(".addToDo");
+      button.addEventListener("click", () => {
+        let ToDoDialog = document.querySelector("#toDoDialog");
+        ToDoDialog.open = "true";
+      });
+    };
+
+    const addToDoSubmitButtonEventListener = () => {
+      let button = document.querySelector(
+        "#toDoDialog > form > input[type=submit]"
+      );
+      button.addEventListener("click", () => {
+        let currentProject = projectsManager.getSelectedProject();
+        currentProject.addToDo(...Object.values(ToDoFormDataGrabber()));
+      });
+    };
+
     return {
       projectAddButtonEventListener,
-      submitButtonEventListener,
+      projectSubmitButtonEventListener,
       projectEventListener,
+      addToDoButtonEventListener,
+      addToDoSubmitButtonEventListener,
     };
   };
 
-  const FormDataGrabber = () => {
+  const ProjectFormDataGrabber = () => {
     let forms = document.forms;
     let projectName = forms[0].elements[0].value;
     let projectDescription = forms[0].elements[1].value;
@@ -127,10 +146,26 @@ const generalLogic = () => {
     };
   };
 
+  const ToDoFormDataGrabber = () => {
+    let forms = document.forms;
+    let ToDoForm = forms[1];
+    let ToDoName = ToDoForm.elements[0].value;
+    let ToDoDescription = ToDoForm.elements[1].value;
+    let ToDoDueDate = ToDoForm.elements[2].value;
+    let ToDoPriority = ToDoForm.elements[3].value;
+    return {
+      ToDoName,
+      ToDoDescription,
+      ToDoDueDate,
+      ToDoPriority,
+    };
+  };
+
   return {
     projectDirectoryModule,
     addEventListeners,
-    FormDataGrabber,
+    ProjectFormDataGrabber,
+    ToDoFormDataGrabber,
   };
 };
 
