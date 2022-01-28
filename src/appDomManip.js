@@ -2,8 +2,6 @@ import { sum } from "lodash";
 import "./style.css";
 import { generalLogic, projectsManager } from "./appLogic";
 
-// Create a module containing all needed DOM manipulators.
-
 const domManip = () => {
   const initialBuildFuncs = () => {
     const elementCreation = () => {
@@ -21,10 +19,10 @@ const domManip = () => {
       form.method = "dialog";
       let label1 = document.createElement("label");
       label1.textContent = "Project Name";
-      label1.for = "projectName";
+      label1.htmlFor = "projectName";
       let label2 = document.createElement("label");
       label2.textContent = "Project Description";
-      label2.for = "projectDescription";
+      label2.htmlFor = "projectDescription";
       let input1 = document.createElement("input");
       input1.type = "text";
       input1.id = "projectName";
@@ -44,6 +42,45 @@ const domManip = () => {
       let toDoHeader = document.createElement("h2");
       toDoHeader.classList.add("toDoHeader");
       let toDoContent = document.createElement("toDoContent");
+      let addToDoButton = document.createElement("button");
+      addToDoButton.classList.add("addToDo");
+      let toDoDialog = document.createElement("dialog");
+      toDoDialog.id = "toDoDialog";
+      let toDoForm = document.createElement("form");
+      toDoForm.method = "dialog";
+      let toDoSubmit = document.createElement("input");
+      toDoSubmit.type = "submit";
+      let toDoTitleLabel = document.createElement("label");
+      toDoTitleLabel.htmlFor = "titleInput";
+      toDoTitleLabel.textContent = "Title";
+      let toDoTitleInput = document.createElement("input");
+      toDoTitleInput.id = "titleInput";
+      let toDoDescriptionLabel = document.createElement("label");
+      toDoDescriptionLabel.htmlFor = "descriptionInput";
+      toDoDescriptionLabel.textContent = "Description";
+      let toDoDescriptionInput = document.createElement("input");
+      toDoDescriptionInput.id = "descriptionInput";
+      let toDoDueDateLabel = document.createElement("label");
+      toDoDueDateLabel.htmlFor = "dueDateInput";
+      toDoDueDateLabel.textContent = "Due date";
+      let toDoDueDateInput = document.createElement("input");
+      toDoDueDateInput.id = "dueDateInput";
+      toDoDueDateInput.type = "date";
+      let toDoPriorityLabel = document.createElement("label");
+      toDoPriorityLabel.htmlFor = "priorityInput";
+      toDoPriorityLabel.textContent = "Priority";
+      let toDoPrioritySelector = document.createElement("select");
+      toDoPrioritySelector.id = "priorityInput";
+      let toDoPrioritySelectorASAP = document.createElement("option");
+      toDoPrioritySelectorASAP.value = "ASAP";
+      toDoPrioritySelectorASAP.textContent = toDoPrioritySelectorASAP.value;
+      let toDoPrioritySelectorSoon = document.createElement("option");
+      toDoPrioritySelectorSoon.value = "Soon";
+      toDoPrioritySelectorSoon.textContent = toDoPrioritySelectorSoon.value;
+      let toDoPrioritySelectorNotUrgent = document.createElement("option");
+      toDoPrioritySelectorNotUrgent.value = "Not Urgent";
+      toDoPrioritySelectorNotUrgent.textContent =
+        toDoPrioritySelectorNotUrgent.value;
       return {
         container,
         h1,
@@ -62,6 +99,21 @@ const domManip = () => {
         toDoSection,
         toDoHeader,
         toDoContent,
+        addToDoButton,
+        toDoDialog,
+        toDoForm,
+        toDoSubmit,
+        toDoTitleInput,
+        toDoTitleLabel,
+        toDoDescriptionInput,
+        toDoDescriptionLabel,
+        toDoDueDateInput,
+        toDoDueDateLabel,
+        toDoPriorityLabel,
+        toDoPrioritySelector,
+        toDoPrioritySelectorASAP,
+        toDoPrioritySelectorSoon,
+        toDoPrioritySelectorNotUrgent,
       };
     };
 
@@ -82,25 +134,49 @@ const domManip = () => {
       summary,
       toDoSection,
       toDoHeader,
-      toDoContent
+      toDoContent,
+      addToDoButton,
+      toDoDialog,
+      toDoForm,
+      toDoSubmit,
+      toDoTitleInput,
+      toDoTitleLabel,
+      toDoDescriptionInput,
+      toDoDescriptionLabel,
+      toDoDueDateInput,
+      toDoDueDateLabel,
+      toDoPriorityLabel,
+      toDoPrioritySelector,
+      toDoPrioritySelectorASAP,
+      toDoPrioritySelectorSoon,
+      toDoPrioritySelectorNotUrgent
     ) => {
       document.body.appendChild(container);
-      container.appendChild(h1);
-      container.appendChild(details);
-      details.appendChild(summary);
-      details.appendChild(projectSection);
-      projectSection.appendChild(projects);
-      projectSection.appendChild(addProjectButton);
-      projectSection.appendChild(dialog);
+      container.append(h1, details);
+      details.append(summary, projectSection);
+      projectSection.append(projects, addProjectButton, dialog);
       dialog.appendChild(form);
-      form.appendChild(label1);
-      form.appendChild(input1);
-      form.appendChild(label2);
-      form.appendChild(input2);
-      form.appendChild(submit);
+      form.append(label1, input1, label2, input2, submit);
       container.appendChild(toDoSection);
-      toDoSection.appendChild(toDoHeader);
-      toDoSection.appendChild(toDoContent);
+      toDoSection.append(toDoHeader, toDoContent, toDoDialog);
+      toDoContent.append(addToDoButton);
+      toDoDialog.append(toDoForm);
+      toDoForm.append(
+        toDoTitleLabel,
+        toDoTitleInput,
+        toDoDescriptionLabel,
+        toDoDescriptionInput,
+        toDoDueDateLabel,
+        toDoDueDateInput,
+        toDoPriorityLabel,
+        toDoPrioritySelector,
+        toDoSubmit
+      );
+      toDoPrioritySelector.append(
+        toDoPrioritySelectorASAP,
+        toDoPrioritySelectorSoon,
+        toDoPrioritySelectorNotUrgent
+      );
     };
 
     return {
