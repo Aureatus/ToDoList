@@ -113,7 +113,7 @@ const generalLogic = () => {
       let button = document.querySelector(".addToDo");
       button.addEventListener("click", () => {
         let ToDoDialog = document.querySelector("#toDoDialog");
-        ToDoDialog.open = "true";
+        ToDoDialog.showModal();
       });
     };
 
