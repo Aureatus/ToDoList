@@ -1,5 +1,5 @@
 import { domManip } from "./appDomManip";
-import { parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 const projectConstructor = (name, description) => {
   const getName = () => name;
@@ -24,6 +24,7 @@ const toDo = (title, description, dueDate, priority) => {
   const getTitle = () => title;
   const getDescription = () => description;
   const getDueDate = () => dueDate;
+  const getFormattedDueDate = () => format(getDueDate(), "dd-MM-yyyy");
   const getPriority = () => priority;
   let complete = false;
   const taskCompleted = () => {
@@ -37,6 +38,7 @@ const toDo = (title, description, dueDate, priority) => {
     getTitle,
     getDescription,
     getDueDate,
+    getFormattedDueDate,
     getPriority,
     taskCompleted,
     isTaskComplete,
@@ -103,8 +105,10 @@ const generalLogic = () => {
         projectsManager.changeSelectedProject(
           projectsManager.getProjects().length - 1
         );
-        let toDoHeader = document.querySelector(".toDoHeader");
-        toDoHeader.textContent = `${projectsManager
+        let currentProjectHeader = document.querySelector(
+          ".currentProjectHeader"
+        );
+        currentProjectHeader.textContent = `${projectsManager
           .getSelectedProject()
           .getName()} project`;
       });
@@ -115,8 +119,10 @@ const generalLogic = () => {
       projects.forEach((e, index) => {
         projects[index].addEventListener("click", () => {
           projectsManager.changeSelectedProject(index);
-          let toDoHeader = document.querySelector(".toDoHeader");
-          toDoHeader.textContent = `${projectsManager
+          let currentProjectHeader = document.querySelector(
+            ".currentProjectHeader"
+          );
+          currentProjectHeader.textContent = `${projectsManager
             .getSelectedProject()
             .getName()} project`;
         });
@@ -138,6 +144,7 @@ const generalLogic = () => {
       button.addEventListener("click", () => {
         let currentProject = projectsManager.getSelectedProject();
         currentProject.addToDo(...Object.values(ToDoFormDataGrabber()));
+        domManip().ToDoRender(currentProject);
       });
     };
 
