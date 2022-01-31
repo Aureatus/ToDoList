@@ -1,4 +1,5 @@
 import { domManip } from "./appDomManip";
+import { parseISO } from "date-fns";
 
 const projectConstructor = (name, description) => {
   const getName = () => name;
@@ -7,6 +8,9 @@ const projectConstructor = (name, description) => {
   const addToDo = (title, description, dueDate, priority) => {
     let toDoObject = toDo(title, description, dueDate, priority);
     ToDoList.push(toDoObject);
+    ToDoList.sort((a, b) => {
+      return a.getDueDate() - b.getDueDate();
+    });
   };
   return {
     getName,
@@ -17,7 +21,6 @@ const projectConstructor = (name, description) => {
 };
 
 const toDo = (title, description, dueDate, priority) => {
-  // priority should be ASAP, soon and not urgent.
   const getTitle = () => title;
   const getDescription = () => description;
   const getDueDate = () => dueDate;
@@ -162,7 +165,7 @@ const generalLogic = () => {
     let ToDoForm = forms[1];
     let ToDoName = ToDoForm.elements[0].value;
     let ToDoDescription = ToDoForm.elements[1].value;
-    let ToDoDueDate = ToDoForm.elements[2].value;
+    let ToDoDueDate = parseISO(ToDoForm.elements[2].value);
     let ToDoPriority = ToDoForm.elements[3].value;
     return {
       ToDoName,
