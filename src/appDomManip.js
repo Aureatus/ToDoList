@@ -39,8 +39,8 @@ const domManip = () => {
       let summary = document.createElement("summary");
       summary.textContent = "Projects";
       let toDoSection = document.createElement("toDoSection");
-      let toDoHeader = document.createElement("h2");
-      toDoHeader.classList.add("toDoHeader");
+      let currentProjectHeader = document.createElement("h2");
+      currentProjectHeader.classList.add("currentProjectHeader");
       let toDoContent = document.createElement("toDoContent");
       let addToDoButton = document.createElement("button");
       addToDoButton.classList.add("addToDo");
@@ -85,6 +85,7 @@ const domManip = () => {
       toDoPrioritySelectorNotUrgent.value = "Not Urgent";
       toDoPrioritySelectorNotUrgent.textContent =
         toDoPrioritySelectorNotUrgent.value;
+      let toDos = document.createElement("toDos");
       return {
         container,
         h1,
@@ -101,7 +102,7 @@ const domManip = () => {
         details,
         summary,
         toDoSection,
-        toDoHeader,
+        currentProjectHeader,
         toDoContent,
         addToDoButton,
         toDoDialog,
@@ -118,6 +119,7 @@ const domManip = () => {
         toDoPrioritySelectorASAP,
         toDoPrioritySelectorSoon,
         toDoPrioritySelectorNotUrgent,
+        toDos,
       };
     };
 
@@ -137,7 +139,7 @@ const domManip = () => {
       details,
       summary,
       toDoSection,
-      toDoHeader,
+      currentProjectHeader,
       toDoContent,
       addToDoButton,
       toDoDialog,
@@ -153,7 +155,8 @@ const domManip = () => {
       toDoPrioritySelector,
       toDoPrioritySelectorASAP,
       toDoPrioritySelectorSoon,
-      toDoPrioritySelectorNotUrgent
+      toDoPrioritySelectorNotUrgent,
+      toDos
     ) => {
       document.body.appendChild(container);
       container.append(h1, details);
@@ -162,8 +165,8 @@ const domManip = () => {
       dialog.appendChild(form);
       form.append(label1, input1, label2, input2, submit);
       container.appendChild(toDoSection);
-      toDoSection.append(toDoHeader, toDoContent, toDoDialog);
-      toDoContent.append(addToDoButton);
+      toDoSection.append(currentProjectHeader, toDoContent, toDoDialog);
+      toDoContent.append(toDos, addToDoButton);
       toDoDialog.append(toDoForm);
       toDoForm.append(
         toDoTitleLabel,
@@ -191,8 +194,8 @@ const domManip = () => {
   const initialBuild = (input) => {
     let elements = Object.values(initialBuildFuncs().elementCreation());
     initialBuildFuncs().elementInsertion(...elements);
-    let toDoHeader = document.querySelector(".toDoHeader");
-    toDoHeader.textContent = `${projectsManager
+    let currentProjectHeader = document.querySelector(".currentProjectHeader");
+    currentProjectHeader.textContent = `${projectsManager
       .getProjects()[0]
       .getName()} project`;
     projectRender(input);
@@ -216,11 +219,49 @@ const domManip = () => {
       projects[index].remove();
     });
   };
+
+  const toDoRender = (currentProject) => {
+    let toDoHolder = document.querySelector("todos");
+    let ToDos = currentProject.ToDoList;
+
+    ToDos.forEach((element, index) => {
+      let toDo = document.createElement("toDo");
+      toDo.classList.add(index + 1);
+      let details = document.createElement("details");
+      let summary = document.createElement("summary");
+      details.append(summary);
+      toDo.append(details);
+      let toDoTitle = document.createElement("toDoTitle");
+      toDoTitle.textContent = currentProject.ToDoList[index].getTitle();
+      summary.append(toDoTitle);
+      let toDoDate = document.createElement("toDoDate");
+      toDoDate.textContent =
+        currentProject.ToDoList[index].getFormattedDueDate();
+      summary.append(toDoDate);
+      toDoHolder.append(toDo);
+      let toDoDescription = document.createElement("todoDescription");
+      toDoDescription.textContent =
+        currentProject.ToDoList[index].getDescription();
+      details.append(toDoDescription);
+      let toDoPriority = document.createElement("toDoPriority");
+      toDoPriority.textContent = currentProject.ToDoList[index].getPriority();
+      details.append(toDoPriority);
+    });
+  };
+  const toDoClear = () => {
+    let toDos = document.querySelectorAll("todo");
+    toDos.forEach((e, index) => {
+      toDos[index].remove();
+    });
+  };
+
   return {
     initialBuild,
     projectRender,
     initialBuildFuncs,
     projectClear,
+    toDoRender,
+    toDoClear,
   };
 };
 
