@@ -238,6 +238,10 @@ const domManip = () => {
       toDoDate.textContent =
         currentProject.ToDoList[index].getFormattedDueDate();
       summary.append(toDoDate);
+      let toDoDeleteButton = document.createElement("button");
+      toDoDeleteButton.classList.add("delete");
+      toDoDeleteButton.textContent = "X";
+      summary.append(toDoDeleteButton);
       toDoHolder.append(toDo);
       let toDoDescription = document.createElement("todoDescription");
       toDoDescription.textContent =
