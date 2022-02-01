@@ -246,6 +246,17 @@ const domManip = () => {
       let toDoPriority = document.createElement("toDoPriority");
       toDoPriority.textContent = currentProject.ToDoList[index].getPriority();
       details.append(toDoPriority);
+      switch (toDoPriority.textContent) {
+        case "ASAP":
+          details.classList.add("ASAP");
+          break;
+        case "Soon":
+          details.classList.add("Soon");
+          break;
+        case "Not Urgent":
+          details.classList.add("notUrgent");
+          break;
+      }
     });
   };
   const toDoClear = () => {

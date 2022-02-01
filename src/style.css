@@ -151,3 +151,15 @@ toDos {
   height: 80%;
   width: 100%;
 }
+
+.ASAP {
+  background-color: red;
+}
+
+.Soon {
+  background-color: orange;
+}
+
+.notUrgent {
+  background-color: green;
+}
