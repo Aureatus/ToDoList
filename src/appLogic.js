@@ -132,6 +132,8 @@ const generalLogic = () => {
           currentProjectHeader.textContent = `${projectsManager
             .getSelectedProject()
             .getName()} project`;
+          let currentProject = projectsManager.getSelectedProject();
+          deleteToDoButtonEventListener(currentProject);
         });
       });
     };
@@ -160,15 +162,30 @@ const generalLogic = () => {
         currentProject.addToDo(...Object.values(ToDoFormDataGrabber()));
         domManip().toDoClear();
         domManip().toDoRender(currentProject);
+        deleteToDoButtonEventListener(currentProject);
       });
     };
 
+    const deleteToDoButtonEventListener = (currentProject) => {
+      let deleteButtons = document.querySelectorAll(".delete");
+      deleteButtons.forEach((element, index) => {
+        deleteButtons[index].addEventListener("click", () => {
+          let toDo =
+            deleteButtons[index].parentElement.parentElement.parentElement;
+          let toDoIndex = toDo.classList[0] - 1;
+          currentProject.ToDoList.splice(toDoIndex);
+          domManip().toDoClear();
+          domManip().toDoRender(currentProject);
+        });
+      });
+    };
     return {
       projectAddButtonEventListener,
       projectSubmitButtonEventListener,
       projectEventListener,
       addToDoButtonEventListener,
       addToDoSubmitButtonEventListener,
+      deleteToDoButtonEventListener,
     };
   };
 
