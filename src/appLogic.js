@@ -70,6 +70,9 @@ const generalLogic = () => {
     };
     const changeSelectedProject = (input) => {
       SelectedProject = getProjects()[input];
+      let currentProject = projectsManager.getSelectedProject();
+      domManip().toDoClear();
+      domManip().toDoRender(currentProject);
     };
     return {
       getProjects,
