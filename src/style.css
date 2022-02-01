@@ -87,7 +87,7 @@ projects {
   margin: auto;
 }
 
-details {
+.projectSectionContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,7 +95,7 @@ details {
   width: 60vw;
   box-sizing: border-box;
 }
-details > summary {
+.projectSectionContainer > summary {
   text-align: center;
   border-color: black;
   border-style: solid;
