@@ -24,7 +24,11 @@ const toDo = (title, description, dueDate, priority) => {
   const getTitle = () => title;
   const getDescription = () => description;
   const getDueDate = () => dueDate;
-  const getFormattedDueDate = () => format(getDueDate(), "dd-MM-yyyy");
+  const getFormattedDueDate = () => {
+    if (getDueDate() != "Invalid Date") {
+      return format(getDueDate(), "dd-MM-yyyy");
+    }
+  };
   const getPriority = () => priority;
   let complete = false;
   const taskCompleted = () => {
@@ -142,9 +146,17 @@ const generalLogic = () => {
         "#toDoDialog > form > input[type=submit]"
       );
       button.addEventListener("click", () => {
+        if (
+          ToDoFormDataGrabber().ToDoName === "" ||
+          ToDoFormDataGrabber().ToDoDescription === "" ||
+          ToDoFormDataGrabber().ToDoDueDate == "Invalid Date"
+        ) {
+          return;
+        }
         let currentProject = projectsManager.getSelectedProject();
         currentProject.addToDo(...Object.values(ToDoFormDataGrabber()));
-        domManip().ToDoRender(currentProject);
+        domManip().toDoClear();
+        domManip().toDoRender(currentProject);
       });
     };
 
