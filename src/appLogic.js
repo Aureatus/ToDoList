@@ -1,6 +1,6 @@
 import { domManip } from "./appDomManip";
 import { format, parseISO } from "date-fns";
-
+import { saveProjectListData, saveToDoListData } from "./saveLogic";
 const projectConstructor = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
@@ -118,6 +118,7 @@ const generalLogic = () => {
         currentProjectHeader.textContent = `${projectsManager
           .getSelectedProject()
           .getName()} project`;
+        saveProjectListData();
       });
     };
 
@@ -134,6 +135,7 @@ const generalLogic = () => {
             .getName()} project`;
           let currentProject = projectsManager.getSelectedProject();
           deleteToDoButtonEventListener(currentProject);
+          saveProjectListData();
         });
       });
     };
@@ -163,6 +165,7 @@ const generalLogic = () => {
         domManip().toDoClear();
         domManip().toDoRender(currentProject);
         deleteToDoButtonEventListener(currentProject);
+        saveToDoListData();
       });
     };
 
@@ -176,6 +179,7 @@ const generalLogic = () => {
           currentProject.ToDoList.splice(toDoIndex);
           domManip().toDoClear();
           domManip().toDoRender(currentProject);
+          saveToDoListData();
         });
       });
     };
