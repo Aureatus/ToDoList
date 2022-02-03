@@ -1,6 +1,10 @@
 import { domManip } from "./appDomManip";
 import { format, parseISO } from "date-fns";
 import { saveProjectListData, saveToDoListData } from "./saveLogic";
+
+// JSON.parse(localStorage.getItem("toDos")); code for getting toDos from storage
+// JSON.parse(localStorage.getItem("projectNames")); code for getting projectNames from storage
+// JSON.parse(localStorage.getItem("projectDescriptions")); code for getting projectDescriptions from storage
 const projectConstructor = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
