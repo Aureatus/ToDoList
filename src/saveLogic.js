@@ -8,7 +8,11 @@ const saveProjectListData = () => {
     projectDescriptions.push(array[index].getDescription());
   });
 
-  return [projectNames, projectDescriptions];
+  localStorage.setItem("projectNames", JSON.stringify(projectNames));
+  localStorage.setItem(
+    "projectDescriptions",
+    JSON.stringify(projectDescriptions)
+  );
 };
 
 const saveToDoListData = () => {
@@ -43,7 +47,7 @@ const saveToDoListData = () => {
     }
     toDos.push(toDoList);
   });
-  return toDos;
+  localStorage.setItem("toDos", JSON.stringify(toDos));
 };
 
 export { saveProjectListData, saveToDoListData };
