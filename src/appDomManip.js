@@ -262,6 +262,9 @@ const domManip = () => {
           break;
       }
     });
+    generalLogic()
+      .addEventListeners()
+      .deleteToDoButtonEventListener(currentProject);
   };
   const toDoClear = () => {
     let toDos = document.querySelectorAll("todo");
