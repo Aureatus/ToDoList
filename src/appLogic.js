@@ -180,7 +180,7 @@ const generalLogic = () => {
           let toDo =
             deleteButtons[index].parentElement.parentElement.parentElement;
           let toDoIndex = toDo.classList[0] - 1;
-          currentProject.ToDoList.splice(toDoIndex);
+          currentProject.ToDoList.splice(toDoIndex, 1);
           domManip().toDoClear();
           domManip().toDoRender(currentProject);
           saveToDoListData();
