@@ -9,9 +9,18 @@ const projectConstructor = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
   let ToDoList = [];
-  const addToDo = (title, description, dueDate, priority) => {
+  const addToDo = (title, description, dueDate, priority, spliceLocation) => {
     let toDoObject = toDo(title, description, dueDate, priority);
-    ToDoList.push(toDoObject);
+    switch (spliceLocation) {
+      case undefined:
+        ToDoList.push(toDoObject);
+        break;
+      case !undefined:
+        console.log("spliceLocation parsed.");
+        ToDoList.splice(spliceLocation, 1, toDoObject);
+        break;
+    }
+
     ToDoList.sort((a, b) => {
       return a.getDueDate() - b.getDueDate();
     });
@@ -185,6 +194,7 @@ const generalLogic = () => {
           domManip().toDoClear();
           domManip().toDoRender(currentProject);
           saveToDoListData();
+          editToDoButtonEventListener();
         });
       });
     };
@@ -217,7 +227,15 @@ const generalLogic = () => {
       let dialog = input;
       let submitButton = dialog.querySelector("form[method=dialog]").lastChild;
       submitButton.addEventListener("click", () => {
-        editFormDataGrabber(input);
+        let toDoIndex = input.parentElement.parentElement.classList[0] - 1;
+        let formData = editFormDataGrabber(input);
+        //projectsManager.getSelectedProject().addToDo()
+        if (formData.ToDoDueDate == "Invalid Date") {
+          formData.ToDoDueDate = projectsManager
+            .getSelectedProject()
+            .ToDoList[toDoIndex].getDueDate();
+        }
+        console.log(formData);
       });
     };
     return {
