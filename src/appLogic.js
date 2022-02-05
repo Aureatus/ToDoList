@@ -11,16 +11,12 @@ const projectConstructor = (name, description) => {
   let ToDoList = [];
   const addToDo = (title, description, dueDate, priority, spliceLocation) => {
     let toDoObject = toDo(title, description, dueDate, priority);
-    switch (spliceLocation) {
-      case undefined:
-        ToDoList.push(toDoObject);
-        break;
-      case !undefined:
-        console.log("spliceLocation parsed.");
-        ToDoList.splice(spliceLocation, 1, toDoObject);
-        break;
+    if (spliceLocation === undefined) {
+      ToDoList.push(toDoObject);
     }
-
+    if (spliceLocation != undefined) {
+      ToDoList.splice(spliceLocation, 1, toDoObject);
+    }
     ToDoList.sort((a, b) => {
       return a.getDueDate() - b.getDueDate();
     });
@@ -207,7 +203,6 @@ const generalLogic = () => {
           if (editDialog === null) {
             let toDo =
               editButtons[index].parentElement.parentElement.parentElement;
-            let toDoIndex = toDo.classList[0] - 1;
             domManip().createEditForm(editButtons[index].parentElement);
           }
 
@@ -229,13 +224,18 @@ const generalLogic = () => {
       submitButton.addEventListener("click", () => {
         let toDoIndex = input.parentElement.parentElement.classList[0] - 1;
         let formData = editFormDataGrabber(input);
-        //projectsManager.getSelectedProject().addToDo()
         if (formData.ToDoDueDate == "Invalid Date") {
           formData.ToDoDueDate = projectsManager
             .getSelectedProject()
             .ToDoList[toDoIndex].getDueDate();
         }
-        console.log(formData);
+        projectsManager
+          .getSelectedProject()
+          .addToDo(...Object.values(formData), toDoIndex);
+        domManip().toDoClear();
+        domManip().toDoRender(projectsManager.getSelectedProject());
+        saveToDoListData();
+        editToDoButtonEventListener();
       });
     };
     return {
