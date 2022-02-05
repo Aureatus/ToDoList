@@ -24,11 +24,7 @@ const storageData = {};
     storageData.toDos = toDos;
   }
 })();
-if (
-  !storageData.projectNames &&
-  !storageData.projectDescriptions &&
-  !storageData.toDos
-) {
+if (!storageData.projectNames && !storageData.projectDescriptions) {
   let defaultProject = projectConstructor(
     "Default",
     "Default project created for all users."
