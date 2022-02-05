@@ -139,6 +139,7 @@ const generalLogic = () => {
             .getName()} project`;
           let currentProject = projectsManager.getSelectedProject();
           deleteToDoButtonEventListener(currentProject);
+          editToDoButtonEventListener();
           saveProjectListData();
         });
       });
@@ -168,7 +169,7 @@ const generalLogic = () => {
         currentProject.addToDo(...Object.values(ToDoFormDataGrabber()));
         domManip().toDoClear();
         domManip().toDoRender(currentProject);
-        deleteToDoButtonEventListener(currentProject);
+        editToDoButtonEventListener();
         saveToDoListData();
       });
     };
@@ -187,6 +188,38 @@ const generalLogic = () => {
         });
       });
     };
+
+    const editToDoButtonEventListener = (currentProject) => {
+      let editButtons = document.querySelectorAll(".edit");
+      editButtons.forEach((element, index) => {
+        editButtons[index].addEventListener("click", () => {
+          let editDialog = document.querySelector("#editDialog");
+          if (editDialog === null) {
+            let toDo =
+              editButtons[index].parentElement.parentElement.parentElement;
+            let toDoIndex = toDo.classList[0] - 1;
+            domManip().createEditForm(editButtons[index].parentElement);
+          }
+
+          editDialog = document.querySelector("#editDialog");
+          editDialog.showModal();
+          editSubmitButtonEventListener(
+            editButtons[index].parentElement.lastChild
+          );
+          editDialog.addEventListener("close", () => {
+            editDialog.remove();
+          });
+        });
+      });
+    };
+
+    const editSubmitButtonEventListener = (input) => {
+      let dialog = input;
+      let submitButton = dialog.querySelector("form[method=dialog]").lastChild;
+      submitButton.addEventListener("click", () => {
+        editFormDataGrabber(input);
+      });
+    };
     return {
       projectAddButtonEventListener,
       projectSubmitButtonEventListener,
@@ -194,6 +227,7 @@ const generalLogic = () => {
       addToDoButtonEventListener,
       addToDoSubmitButtonEventListener,
       deleteToDoButtonEventListener,
+      editToDoButtonEventListener,
     };
   };
 
@@ -221,12 +255,28 @@ const generalLogic = () => {
       ToDoPriority,
     };
   };
+  /* To edit ToDos just add a todo with edited values(change addToDos push method to splice, with a conditional so that if no argument is provided for where to splice
+then splice to end.)*/
+  const editFormDataGrabber = (input) => {
+    let editForm = input.lastChild;
+    let ToDoName = editForm.elements[0].value;
+    let ToDoDescription = editForm.elements[1].value;
+    let ToDoDueDate = parseISO(editForm.elements[2].value);
+    let ToDoPriority = editForm.elements[3].value;
+    return {
+      ToDoName,
+      ToDoDescription,
+      ToDoDueDate,
+      ToDoPriority,
+    };
+  };
 
   return {
     projectDirectoryModule,
     addEventListeners,
     ProjectFormDataGrabber,
     ToDoFormDataGrabber,
+    editFormDataGrabber,
   };
 };
 
