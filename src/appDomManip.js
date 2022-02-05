@@ -1,6 +1,7 @@
 import { sum } from "lodash";
 import "./style.css";
 import { generalLogic, projectsManager } from "./appLogic";
+import { format, formatISO9075 } from "date-fns";
 
 const domManip = () => {
   const initialBuildFuncs = () => {
@@ -250,6 +251,10 @@ const domManip = () => {
       let toDoPriority = document.createElement("toDoPriority");
       toDoPriority.textContent = currentProject.ToDoList[index].getPriority();
       details.append(toDoPriority);
+      let toDoEdit = document.createElement("button");
+      toDoEdit.textContent = "Edit";
+      toDoEdit.classList.add("edit");
+      details.append(toDoEdit);
       switch (toDoPriority.textContent) {
         case "ASAP":
           details.classList.add("ASAP");
@@ -273,6 +278,73 @@ const domManip = () => {
     });
   };
 
+  const createEditForm = (input) => {
+    let currentTitle = input.children[0].children[0].textContent;
+    let currentDescription = input.children[1].textContent;
+    let currentPriority = input.children[2].textContent;
+    let editDialog = document.createElement("dialog");
+    editDialog.id = "editDialog";
+    let editForm = document.createElement("form");
+    editForm.method = "dialog";
+    let editSubmit = document.createElement("input");
+    editSubmit.type = "submit";
+    let editTitleLabel = document.createElement("label");
+    editTitleLabel.htmlFor = "titleInput";
+    editTitleLabel.textContent = "Title";
+    let editTitleInput = document.createElement("input");
+    editTitleInput.id = "titleInput";
+    editTitleInput.required = true;
+    editTitleInput.value = currentTitle;
+    let editDescriptionLabel = document.createElement("label");
+    editDescriptionLabel.htmlFor = "descriptionInput";
+    editDescriptionLabel.textContent = "Description";
+    let editDescriptionInput = document.createElement("input");
+    editDescriptionInput.id = "descriptionInput";
+    editDescriptionInput.required = true;
+    editDescriptionInput.value = currentDescription;
+    let editDueDateLabel = document.createElement("label");
+    editDueDateLabel.htmlFor = "dueDateInput";
+    editDueDateLabel.textContent = "Due date";
+    let editDueDateInput = document.createElement("input");
+    editDueDateInput.id = "dueDateInput";
+    editDueDateInput.type = "date";
+    editDueDateInput.required = false;
+    let editPriorityLabel = document.createElement("label");
+    editPriorityLabel.htmlFor = "priorityInput";
+    editPriorityLabel.textContent = "Priority";
+    let editPrioritySelector = document.createElement("select");
+    editPrioritySelector.id = "priorityInput";
+    let editPrioritySelectorASAP = document.createElement("option");
+    editPrioritySelectorASAP.value = "ASAP";
+    editPrioritySelectorASAP.textContent = editPrioritySelectorASAP.value;
+    let editPrioritySelectorSoon = document.createElement("option");
+    editPrioritySelectorSoon.value = "Soon";
+    editPrioritySelectorSoon.textContent = editPrioritySelectorSoon.value;
+    let editPrioritySelectorNotUrgent = document.createElement("option");
+    editPrioritySelectorNotUrgent.value = "Not Urgent";
+    editPrioritySelectorNotUrgent.textContent =
+      editPrioritySelectorNotUrgent.value;
+    editPrioritySelector.value = currentPriority;
+
+    editDialog.append(editForm);
+    editPrioritySelector.append(
+      editPrioritySelectorASAP,
+      editPrioritySelectorSoon,
+      editPrioritySelectorNotUrgent
+    );
+    editForm.append(
+      editTitleLabel,
+      editTitleInput,
+      editDescriptionLabel,
+      editDescriptionInput,
+      editDueDateLabel,
+      editDueDateInput,
+      editPriorityLabel,
+      editPrioritySelector,
+      editSubmit
+    );
+    input.append(editDialog);
+  };
   return {
     initialBuild,
     projectRender,
@@ -280,6 +352,7 @@ const domManip = () => {
     projectClear,
     toDoRender,
     toDoClear,
+    createEditForm,
   };
 };
 
