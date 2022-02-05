@@ -65,10 +65,8 @@ generalLogic().addEventListeners().projectAddButtonEventListener();
 generalLogic().addEventListeners().projectSubmitButtonEventListener();
 let currentProject = projectsManager.getSelectedProject();
 domManip().toDoRender(currentProject);
-generalLogic()
-  .addEventListeners()
-  .deleteToDoButtonEventListener(currentProject);
 generalLogic().addEventListeners().addToDoButtonEventListener();
 generalLogic().addEventListeners().addToDoSubmitButtonEventListener();
+generalLogic().addEventListeners().editToDoButtonEventListener();
 
 export { projectsManager };
