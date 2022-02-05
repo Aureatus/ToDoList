@@ -6,6 +6,7 @@ module.exports = {
     index: "./src/index.js",
     logic: "./src/appLogic.js",
     domManip: "./src/appDomManip.js",
+    saveLogic: "./src/saveLogic.js",
   },
   devtool: "inline-source-map",
   plugins: [
