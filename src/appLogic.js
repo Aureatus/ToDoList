@@ -178,6 +178,13 @@ const generalLogic = () => {
         saveToDoListData();
       });
     };
+    const addToDoDialogEventListener = () => {
+      let toDoForm = document.forms[1];
+      let dialog = toDoForm.parentElement;
+      dialog.addEventListener("close", () => {
+        toDoForm.reset();
+      });
+    };
 
     const deleteToDoButtonEventListener = (currentProject) => {
       let deleteButtons = document.querySelectorAll(".delete");
@@ -246,6 +253,7 @@ const generalLogic = () => {
       addToDoSubmitButtonEventListener,
       deleteToDoButtonEventListener,
       editToDoButtonEventListener,
+      addToDoDialogEventListener,
     };
   };
 

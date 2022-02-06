@@ -64,5 +64,6 @@ domManip().toDoRender(currentProject);
 generalLogic().addEventListeners().addToDoButtonEventListener();
 generalLogic().addEventListeners().addToDoSubmitButtonEventListener();
 generalLogic().addEventListeners().editToDoButtonEventListener();
+generalLogic().addEventListeners().addToDoDialogEventListener();
 
 export { projectsManager };
