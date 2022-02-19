@@ -36,4 +36,18 @@ container h1 {
   height: 100%;
   margin: 0;
   padding: 0;
+
+  background-color: #a8363a;
+}
+
+.projectSectionContainer {
+  grid-area: 2 / 1 / span 1 span 1;
+
+  background-color: #faf2f8;
+}
+
+todosection {
+  grid-area: 1 / 2 / span 1 span 1;
+
+  background-color: #e8dad1;
 }
