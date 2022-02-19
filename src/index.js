@@ -7,6 +7,7 @@ import { projectConstructor, generalLogic, projectsManager } from "./appLogic";
 import { domManip } from "./appDomManip";
 import "./style.css";
 import { parseISO } from "date-fns";
+import "normalize.css";
 const storageData = {};
 (function () {
   let projectNames = JSON.parse(localStorage.getItem("projectNames"));
