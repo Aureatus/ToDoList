@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 .ASAP {
   border-style: solid;
   border-width: 2px;
@@ -14,6 +16,16 @@
   border-style: solid;
   border-width: 2px;
   border-color: green;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+button {
+  padding: 0;
+  border: none;
 }
 
 html,
@@ -37,8 +49,13 @@ container h1 {
   margin: 0;
   text-align: center;
   background-color: #a8363a;
+  font-family: Poppins;
   font-size: 6rem;
-  padding: 1% 0px;
+  font-weight: 400;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .projectSectionContainer {
@@ -51,4 +68,149 @@ todosection {
   grid-area: 1 / 2 / span 1 span 1;
 
   background-color: #e8dad1;
+
+  display: grid;
+  grid-template: 1fr 12fr / 1fr;
+
+  justify-items: center;
+
+  row-gap: 5%;
+}
+
+todosection h2 {
+  font-family: poppins;
+  font-size: calc(1rem + 2.5vw);
+  font-weight: 200;
+}
+
+todocontent {
+  width: 80%;
+}
+
+todo details summary {
+  list-style: none;
+
+  display: grid;
+  grid-template: 1fr / 1fr 4fr 4fr 1fr;
+
+  justify-items: center;
+}
+
+todo details summary::after {
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+
+  justify-self: start;
+}
+
+todo details {
+  background-color: white;
+  border-radius: 5px;
+
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  justify-items: center;
+}
+
+todo details summary todotitle {
+  font-family: Poppins;
+  font-size: calc(1.3rem + 1vw);
+}
+
+todo details summary tododate {
+  font-family: Poppins;
+  font-size: calc(1.3rem + 1vw);
+}
+
+todo details tododescription {
+  text-align: center;
+  font-family: Poppins;
+  font-size: 1.2rem;
+}
+
+todo details todopriority {
+  text-align: center;
+  font-family: Poppins;
+  font-size: 1.2rem;
+}
+
+todo details button.edit {
+  width: 100%;
+  font-family: Poppins;
+  font-size: 1.5rem;
+}
+
+todo details button.delete {
+  grid-row: 1 / span 1;
+  grid-column: 4 / span 1;
+
+  width: 50%;
+  background-color: crimson;
+
+  justify-self: end;
+}
+
+details.projectSectionContainer summary {
+  height: 10%;
+
+  list-style: none;
+
+  display: grid;
+  grid-template: 1fr / 1fr 3fr;
+
+  font-family: poppins;
+  font-size: calc(1rem + 2vw);
+  font-weight: 200;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: " ►";
+}
+
+details[open] summary::after {
+  content: " ▼";
+}
+
+projectsection {
+  height: 90%;
+
+  display: grid;
+  grid-template: 8fr 1fr/ 1fr;
+
+  justify-items: center;
+
+  row-gap: 4%;
+}
+
+projectsection > button {
+  height: 50%;
+  width: 70%;
+  max-height: 5vh;
+  border: 1px solid black;
+  border-radius: calc(8px + 2vw);
+}
+
+projects {
+  display: grid;
+  grid-template: auto / 1fr;
+  row-gap: 4%;
+
+  width: 100%;
+
+  justify-items: center;
+}
+
+projects button {
+  height: 40%;
+  max-height: 5vh;
+  width: 60%;
+
+  font-family: Poppins;
+
+  border: 1px solid black;
+  border-radius: calc(8px + 2vw);
 }
