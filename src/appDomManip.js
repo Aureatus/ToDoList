@@ -1,7 +1,5 @@
-import { sum } from "lodash";
 import "./style.css";
 import { generalLogic, projectsManager } from "./appLogic";
-import { format, formatISO9075 } from "date-fns";
 
 const domManip = () => {
   const initialBuildFuncs = () => {
