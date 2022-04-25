@@ -129,4 +129,4 @@ out
 .pnp.*
 
 # build files
-.dist
+/dist
