@@ -2,6 +2,13 @@ import { domManip } from "./appDomManip";
 import { format, parseISO } from "date-fns";
 import { saveProjectListData, saveToDoListData } from "./saveLogic";
 
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+const signInWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(getAuth(), provider);
+};
+
 const projectConstructor = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
@@ -242,6 +249,13 @@ const generalLogic = () => {
         editToDoButtonEventListener();
       });
     };
+
+    const signInWithGoogleEventListener = () => {
+      document.querySelector(".sign-in").addEventListener("click", () => {
+        signInWithGoogle();
+      });
+    };
+
     return {
       projectAddButtonEventListener,
       projectSubmitButtonEventListener,
@@ -251,6 +265,7 @@ const generalLogic = () => {
       deleteToDoButtonEventListener,
       editToDoButtonEventListener,
       addToDoDialogEventListener,
+      signInWithGoogleEventListener,
     };
   };
 
@@ -303,4 +318,4 @@ const generalLogic = () => {
 };
 
 const projectsManager = generalLogic().projectDirectoryModule();
-export { projectConstructor, generalLogic, projectsManager };
+export { projectConstructor, generalLogic, projectsManager, signInWithGoogle };
