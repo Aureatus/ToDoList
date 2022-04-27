@@ -1,7 +1,6 @@
 import { projectConstructor, generalLogic, projectsManager } from "./appLogic";
 import { domManip } from "./appDomManip";
 import "./style.css";
-import { parseISO } from "date-fns";
 import "normalize.css";
 
 // Import the functions you need from the SDKs you need
