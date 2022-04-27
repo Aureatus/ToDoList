@@ -206,7 +206,7 @@ const domManip = () => {
     let currentProjectHeader = document.querySelector(".currentProjectHeader");
     currentProjectHeader.textContent = `${projectsManager
       .getProjects()[0]
-      .getName()} project`;
+      .getName()}`;
     projectRender(input);
   };
 

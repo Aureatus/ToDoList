@@ -145,7 +145,7 @@ const generalLogic = () => {
           );
           currentProjectHeader.textContent = `${projectsManager
             .getSelectedProject()
-            .getName()} project`;
+            .getName()}`;
           let currentProject = projectsManager.getSelectedProject();
           deleteToDoButtonEventListener(currentProject);
           editToDoButtonEventListener();
