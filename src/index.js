@@ -22,71 +22,84 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const getFirestoreData = async () => {
+const getFirestoreProjectData = async () => {
   const database = getFirestore(app);
   const projects = await getDocs(collection(database, "Projects"));
-  const toDoList = await getDocs(
-    collection(database, "Projects", "Project 1", "ToDoList")
-  );
 
-  return { projects, toDoList };
+  return projects;
+};
+
+// Create functions required to initalize toDoList
+
+const getProjectData = async () => {
+  const projects = await getFirestoreProjectData();
+
+  if (!projects) {
+    let defaultProject = projectConstructor(
+      "Default",
+      "Default project created for all users."
+    );
+    projectsManager.pushProject(defaultProject);
+  }
+  if (projects) {
+    projects.forEach((doc) => {
+      let tempProject = projectConstructor(
+        doc.data().name,
+        doc.data().description
+      );
+      projectsManager.pushProject(tempProject);
+    });
+  }
+};
+
+const getToDoData = async () => {
+  const localProjects = projectsManager.getProjects();
+  localProjects.forEach(async (project, index) => {
+    const database = getFirestore(app);
+    const toDoList = await getDocs(
+      collection(database, "Projects", project.getName(), "ToDoList")
+    );
+    if (toDoList) {
+      toDoList.docs.forEach((doc) => {
+        projectsManager
+          .getProjects()
+          [index].addToDo(
+            doc.data().title,
+            doc.data().description,
+            new Date(doc.data().dueDate.seconds * 1000),
+            doc.data().priority
+          );
+      });
+      projectsManager.changeSelectedProject(0);
+      generalLogic().addEventListeners().editToDoButtonEventListener();
+    }
+  });
+};
+
+const domInitalize = () => {
+  domManip().initialBuild(projectsManager.getProjects());
+  generalLogic().addEventListeners().projectAddButtonEventListener();
+  generalLogic().addEventListeners().projectSubmitButtonEventListener();
+  generalLogic().addEventListeners().addToDoButtonEventListener();
+  generalLogic().addEventListeners().addToDoSubmitButtonEventListener();
+  generalLogic().addEventListeners().addToDoDialogEventListener();
+  generalLogic().addEventListeners().signInWithGoogleEventListener();
 };
 
 // Initialize toDoList
 
-const initializeToDoList = async () => {
+const getData = async () => {
   try {
-    const { projects, toDoList } = await getFirestoreData();
-    if (!projects) {
-      let defaultProject = projectConstructor(
-        "Default",
-        "Default project created for all users."
-      );
-      projectsManager.pushProject(defaultProject);
-      projectsManager.changeSelectedProject(0);
-    }
-    if (projects) {
-      projects.forEach((doc) => {
-        let tempProject = projectConstructor(
-          doc.data().name,
-          doc.data().description
-        );
-        projectsManager.pushProject(tempProject);
-      });
-
-      projectsManager.changeSelectedProject(0);
-    }
-    if (toDoList) {
-      const projects = projectsManager.getProjects();
-      projects.forEach((project, index) => {
-        toDoList.docs.forEach((doc) => {
-          projectsManager
-            .getProjects()
-            [index].addToDo(
-              doc.data().title,
-              doc.data().description,
-              new Date(doc.data().dueDate.seconds * 1000),
-              doc.data().priority
-            );
-        });
-      });
-    }
-
-    domManip().initialBuild(projectsManager.getProjects());
-    generalLogic().addEventListeners().projectAddButtonEventListener();
-    generalLogic().addEventListeners().projectSubmitButtonEventListener();
-    let currentProject = projectsManager.getSelectedProject();
-    domManip().toDoRender(currentProject);
-    generalLogic().addEventListeners().addToDoButtonEventListener();
-    generalLogic().addEventListeners().addToDoSubmitButtonEventListener();
-    generalLogic().addEventListeners().editToDoButtonEventListener();
-    generalLogic().addEventListeners().addToDoDialogEventListener();
-    generalLogic().addEventListeners().signInWithGoogleEventListener();
+    await getProjectData();
+    await getToDoData();
   } catch (error) {
     console.error(error);
   }
 };
 
-initializeToDoList();
+(async () => {
+  await getData();
+  domInitalize();
+})();
 
-export { projectsManager };
+export { projectsManager, app };

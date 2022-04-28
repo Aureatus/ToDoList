@@ -1,53 +1,95 @@
 import { projectsManager } from "./appLogic";
 
-const saveProjectListData = () => {
-  let projectNames = [];
-  let projectDescriptions = [];
-  projectsManager.getProjects().forEach((element, index, array) => {
-    projectNames.push(array[index].getName());
-    projectDescriptions.push(array[index].getDescription());
-  });
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  deleteDoc,
+  setDoc,
+  doc,
+} from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-  localStorage.setItem("projectNames", JSON.stringify(projectNames));
-  localStorage.setItem(
-    "projectDescriptions",
-    JSON.stringify(projectDescriptions)
-  );
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyB7rCXHLR3KQtc0ZBjw-Lp_cHbewhduMK0",
+  authDomain: "todolist-deabf.firebaseapp.com",
+  projectId: "todolist-deabf",
+  storageBucket: "todolist-deabf.appspot.com",
+  messagingSenderId: "164175545050",
+  appId: "1:164175545050:web:47540ffd431cbb2b37dbe3",
 };
 
-const saveToDoListData = () => {
-  let toDos = [];
-  projectsManager.getProjects().forEach((element, index, array) => {
-    let toDoList = [];
-    let toDoTitles = [];
-    let toDoDescriptions = [];
-    let toDoDueDates = [];
-    let toDoFormattedDueDates = [];
-    let toDoPriorities = [];
-    array[index].ToDoList.forEach(
-      (element,
-      (index) => {
-        toDoTitles.push(index.getTitle());
-        toDoDescriptions.push(index.getDescription());
-        toDoDueDates.push(index.getDueDate());
-        toDoFormattedDueDates.push(index.getFormattedDueDate());
-        toDoPriorities.push(index.getPriority());
-      })
-    );
-    for (let i = 0; i < toDoTitles.length; i++) {
-      let tempToDo = [];
-      tempToDo.push(
-        toDoTitles[i],
-        toDoDescriptions[i],
-        toDoDueDates[i],
-        toDoFormattedDueDates[i],
-        toDoPriorities[i]
-      );
-      toDoList.splice(i, 0, tempToDo);
-    }
-    toDos.push(toDoList);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const saveProjectToFirebase = async (project) => {
+  const database = getFirestore(app);
+
+  await setDoc(doc(database, "Projects", project.getName()), {
+    name: project.getName(),
+    description: project.getDescription(),
   });
-  localStorage.setItem("toDos", JSON.stringify(toDos));
 };
 
-export { saveProjectListData, saveToDoListData };
+const saveToDoToProject = async (
+  projectName,
+  title,
+  description,
+  dueDate,
+  priority,
+  spliceLocation
+) => {
+  const database = getFirestore(app);
+
+  if (spliceLocation) {
+    await setDoc(doc(database, "Projects", projectName, "ToDoList", title), {
+      title: title,
+      description: description,
+      dueDate: dueDate,
+      priority: priority,
+      spliceLocation: spliceLocation,
+    });
+  } else {
+    await setDoc(doc(database, "Projects", projectName, "ToDoList", title), {
+      title: title,
+      description: description,
+      dueDate: dueDate,
+      priority: priority,
+    });
+  }
+};
+
+const saveToDoEdit = async (
+  projectName,
+  oldTitle,
+  newTitle,
+  description,
+  dueDate,
+  priority,
+  spliceLocation
+) => {
+  const database = getFirestore(app);
+  await deleteDoc(doc(database, "Projects", projectName, "ToDoList", oldTitle));
+  await setDoc(doc(database, "Projects", projectName, "ToDoList", newTitle), {
+    title: newTitle,
+    description: description,
+    dueDate: dueDate,
+    priority: priority,
+    spliceLocation: spliceLocation,
+  });
+};
+
+const saveToDoDelete = async (projectName, title) => {
+  const database = getFirestore(app);
+  await deleteDoc(doc(database, "Projects", projectName, "ToDoList", title));
+};
+
+export {
+  saveProjectToFirebase,
+  saveToDoToProject,
+  saveToDoEdit,
+  saveToDoDelete,
+};

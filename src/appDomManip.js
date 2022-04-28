@@ -232,7 +232,6 @@ const domManip = () => {
   const toDoRender = (currentProject) => {
     let toDoHolder = document.querySelector("todos");
     let ToDos = currentProject.ToDoList;
-
     ToDos.forEach((element, index) => {
       let toDo = document.createElement("toDo");
       toDo.classList.add(index + 1);

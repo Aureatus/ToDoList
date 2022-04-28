@@ -1,6 +1,11 @@
 import { domManip } from "./appDomManip";
 import { format, parseISO } from "date-fns";
-import { saveProjectListData, saveToDoListData } from "./saveLogic";
+import {
+  saveProjectToFirebase,
+  saveToDoDelete,
+  saveToDoEdit,
+  saveToDoToProject,
+} from "./saveLogic";
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
@@ -17,9 +22,28 @@ const projectConstructor = (name, description) => {
     let toDoObject = toDo(title, description, dueDate, priority);
     if (spliceLocation === undefined) {
       ToDoList.push(toDoObject);
+      saveToDoToProject(
+        getName(),
+        title,
+        description,
+        dueDate,
+        priority,
+        spliceLocation
+      );
     }
     if (spliceLocation != undefined) {
+      const oldTitle = ToDoList[spliceLocation].getTitle();
       ToDoList.splice(spliceLocation, 1, toDoObject);
+      const newTitle = ToDoList[spliceLocation].getTitle();
+      saveToDoEdit(
+        getName(),
+        oldTitle,
+        newTitle,
+        description,
+        dueDate,
+        priority,
+        spliceLocation
+      );
     }
     ToDoList.sort((a, b) => {
       return a.getDueDate() - b.getDueDate();
@@ -120,6 +144,7 @@ const generalLogic = () => {
           return;
         }
         projectsManager.pushProject(tempProject);
+        saveProjectToFirebase(tempProject);
         domManip().projectClear();
         domManip().projectRender(projectsManager.getProjects());
         projectsManager.changeSelectedProject(
@@ -131,7 +156,6 @@ const generalLogic = () => {
         currentProjectHeader.textContent = `${projectsManager
           .getSelectedProject()
           .getName()} project`;
-        saveProjectListData();
       });
     };
 
@@ -146,10 +170,7 @@ const generalLogic = () => {
           currentProjectHeader.textContent = `${projectsManager
             .getSelectedProject()
             .getName()}`;
-          let currentProject = projectsManager.getSelectedProject();
-          deleteToDoButtonEventListener(currentProject);
           editToDoButtonEventListener();
-          saveProjectListData();
         });
       });
     };
@@ -179,7 +200,6 @@ const generalLogic = () => {
         domManip().toDoClear();
         domManip().toDoRender(currentProject);
         editToDoButtonEventListener();
-        saveToDoListData();
       });
     };
     const addToDoDialogEventListener = () => {
@@ -197,16 +217,19 @@ const generalLogic = () => {
           let toDo =
             deleteButtons[index].parentElement.parentElement.parentElement;
           let toDoIndex = toDo.classList[0] - 1;
+          saveToDoDelete(
+            currentProject.getName(),
+            currentProject.ToDoList[toDoIndex].getTitle()
+          );
           currentProject.ToDoList.splice(toDoIndex, 1);
           domManip().toDoClear();
           domManip().toDoRender(currentProject);
-          saveToDoListData();
           editToDoButtonEventListener();
         });
       });
     };
 
-    const editToDoButtonEventListener = (currentProject) => {
+    const editToDoButtonEventListener = () => {
       let editButtons = document.querySelectorAll(".edit");
       editButtons.forEach((element, index) => {
         editButtons[index].addEventListener("click", () => {
@@ -245,7 +268,7 @@ const generalLogic = () => {
           .addToDo(...Object.values(formData), toDoIndex);
         domManip().toDoClear();
         domManip().toDoRender(projectsManager.getSelectedProject());
-        saveToDoListData();
+
         editToDoButtonEventListener();
       });
     };
