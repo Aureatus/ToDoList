@@ -7,13 +7,6 @@ import {
   saveToDoToProject,
 } from "./saveLogic";
 
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
-const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(getAuth(), provider);
-};
-
 const projectConstructor = (name, description) => {
   const getName = () => name;
   const getDescription = () => description;
@@ -273,12 +266,6 @@ const generalLogic = () => {
       });
     };
 
-    const signInWithGoogleEventListener = () => {
-      document.querySelector(".sign-in").addEventListener("click", () => {
-        signInWithGoogle();
-      });
-    };
-
     return {
       projectAddButtonEventListener,
       projectSubmitButtonEventListener,
@@ -288,7 +275,6 @@ const generalLogic = () => {
       deleteToDoButtonEventListener,
       editToDoButtonEventListener,
       addToDoDialogEventListener,
-      signInWithGoogleEventListener,
     };
   };
 
@@ -341,4 +327,4 @@ const generalLogic = () => {
 };
 
 const projectsManager = generalLogic().projectDirectoryModule();
-export { projectConstructor, generalLogic, projectsManager, signInWithGoogle };
+export { projectConstructor, generalLogic, projectsManager };

@@ -32,6 +32,20 @@ html,
 body {
   height: 100vh;
   width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in {
+  height: 30%;
+  width: 30%;
+
+  border: black solid 2px;
+  border-radius: 2%;
+
+  background-color: bisque;
 }
 
 container {

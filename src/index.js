@@ -5,7 +5,14 @@ import "normalize.css";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  where,
+  query,
+} from "firebase/firestore";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,11 +29,24 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+const auth = getAuth();
+
 const getFirestoreProjectData = async () => {
   const database = getFirestore(app);
-  const projects = await getDocs(collection(database, "Projects"));
+  console.log(auth.currentUser.uid);
+  if (auth.currentUser === null) {
+    return undefined;
+  }
+  const projectsRef = collection(database, "Projects");
+  const userProjectsQuery = query(
+    projectsRef,
+    where("uid", "==", auth.currentUser.uid)
+  );
 
-  return projects;
+  const userProjectsResults = await getDocs(userProjectsQuery);
+  console.log(userProjectsResults);
+
+  return userProjectsResults;
 };
 
 // Create functions required to initalize toDoList
@@ -83,7 +103,6 @@ const domInitalize = () => {
   generalLogic().addEventListeners().addToDoButtonEventListener();
   generalLogic().addEventListeners().addToDoSubmitButtonEventListener();
   generalLogic().addEventListeners().addToDoDialogEventListener();
-  generalLogic().addEventListeners().signInWithGoogleEventListener();
 };
 
 // Initialize toDoList
@@ -97,9 +116,22 @@ const getData = async () => {
   }
 };
 
-(async () => {
+const signInWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  await signInWithPopup(getAuth(), provider);
+  document.body.removeChild(document.querySelector(".sign-in"));
   await getData();
   domInitalize();
+};
+
+(async () => {
+  let signInWithGoogleButton = document.createElement("button");
+  signInWithGoogleButton.textContent = "Sign in";
+  signInWithGoogleButton.classList.add("sign-in");
+  document.body.appendChild(signInWithGoogleButton);
+  document.querySelector(".sign-in").addEventListener("click", () => {
+    signInWithGoogle();
+  });
 })();
 
 export { projectsManager, app };

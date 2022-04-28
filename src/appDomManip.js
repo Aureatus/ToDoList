@@ -6,9 +6,6 @@ const domManip = () => {
     const elementCreation = () => {
       let container = document.createElement("container");
       let header = document.createElement("header");
-      let signInWithGoogleButton = document.createElement("button");
-      signInWithGoogleButton.textContent = "Sign in";
-      signInWithGoogleButton.classList.add("sign-in");
       let h1 = document.createElement("h1");
       h1.textContent = "ToDo List";
       let projectSection = document.createElement("projectSection");
@@ -93,7 +90,6 @@ const domManip = () => {
         container,
         header,
         h1,
-        signInWithGoogleButton,
         projectSection,
         projects,
         addProjectButton,
@@ -132,7 +128,6 @@ const domManip = () => {
       container,
       header,
       h1,
-      signInWithGoogleButton,
       projectSection,
       projects,
       addProjectButton,
@@ -167,7 +162,6 @@ const domManip = () => {
     ) => {
       document.body.appendChild(container);
       header.appendChild(h1);
-      header.appendChild(signInWithGoogleButton);
       container.append(header, details);
       details.append(summary, projectSection);
       projectSection.append(projects, addProjectButton, dialog);
