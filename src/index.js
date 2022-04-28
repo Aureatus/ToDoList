@@ -1,5 +1,6 @@
 import { projectConstructor, generalLogic, projectsManager } from "./appLogic";
 import { domManip } from "./appDomManip";
+import { saveProjectToFirebase } from "./saveLogic";
 import "./style.css";
 import "normalize.css";
 
@@ -52,12 +53,13 @@ const getFirestoreProjectData = async () => {
 const getProjectData = async () => {
   const projects = await getFirestoreProjectData();
 
-  if (!projects) {
+  if (projects.docs.length === 0) {
     let defaultProject = projectConstructor(
       "Default",
       "Default project created for all users."
     );
     projectsManager.pushProject(defaultProject);
+    saveProjectToFirebase(defaultProject);
   }
   if (projects) {
     projects.forEach((doc) => {

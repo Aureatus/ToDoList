@@ -2,13 +2,9 @@ import { projectsManager } from "./appLogic";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  deleteDoc,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { getFirestore, deleteDoc, setDoc, doc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,6 +27,7 @@ const saveProjectToFirebase = async (project) => {
   await setDoc(doc(database, "Projects", project.getName()), {
     name: project.getName(),
     description: project.getDescription(),
+    uid: getAuth().currentUser.uid,
   });
 };
 
