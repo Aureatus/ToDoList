@@ -33,7 +33,6 @@ const auth = getAuth();
 
 const getFirestoreProjectData = async () => {
   const database = getFirestore(app);
-  console.log(auth.currentUser.uid);
   if (auth.currentUser === null) {
     return undefined;
   }
@@ -44,7 +43,6 @@ const getFirestoreProjectData = async () => {
   );
 
   const userProjectsResults = await getDocs(userProjectsQuery);
-  console.log(userProjectsResults);
 
   return userProjectsResults;
 };
